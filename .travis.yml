@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t fsved/standard_complex -f .client/Dockerfile.dev ./client
+
+script:
+  - docker run fsved/standard_complex npm test -- --coverage
+
+after_success:
+  - docker build -t fsved/std-complex_client ./client
+  - docker build -t fsved/std-complex_nginx ./nginx
+  - docker build -t fsved/std-complex_server ./server
+  - docker build -t fsved/std-complex_worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOKER_ID" --password-stdin
+  - docker push fsved/std-complex_client
+  - docker push fsved/std-complex_nginx
+  - docker push fsved/std-complex_server
+  - docker push fsved/std-complex_worker
+  
