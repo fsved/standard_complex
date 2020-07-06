@@ -21,3 +21,5 @@ after_success:
   - docker push fsved/std-complex_nginx
   - docker push fsved/std-complex_server
   - docker push fsved/std-complex_worker
+
+  - docker logout
