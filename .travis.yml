@@ -14,7 +14,9 @@ after_success:
   - docker build -t fsved/std-complex_server ./server
   - docker build -t fsved/std-complex_worker ./worker
 
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOKER_ID" --password-stdin
+  # Login ot the docker CLI in one single command
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push separate container images to Docker hub
   - docker push fsved/std-complex_client
   - docker push fsved/std-complex_nginx
   - docker push fsved/std-complex_server
