@@ -23,3 +23,16 @@ after_success:
   - docker push fsved/std-complex_worker
 
   - docker logout
+
+deploy:
+  # edge: true
+  provider: elasticbeanstalk
+  region: eu-west-2
+  app: standard_complex
+  env: StandardComplex-env
+  bucket_name: elasticbeanstalk-eu-west-2-163264011359
+  bucket_path: standard_complex
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
